@@ -1,0 +1,15 @@
+extends layout
+block content
+	.homediv
+	h2(style='color:#fff;padding:0em 1em;').
+		Welcome to #{title}
+	div(style='display:flex;align-items:center;\
+		flex-direction:column')
+		img.homeimg(src='/images/homepage.svg')
+		.homediv2 Start your music journey
+			if(lgd)
+				p Go to Projects and start recording
+			else
+				.but
+					a(href='/users/login') Login
+					a(href='/users/register') Register

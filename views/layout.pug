@@ -1,0 +1,31 @@
+doctype html
+html(lang='en')
+	head
+		meta(charset='utf-8')
+		title= title
+		meta(name='viewport',content='width=device-width,initial-scale=1')
+		link(rel='stylesheet', href='/stylesheets/style.css')
+
+	body
+		.app
+			header
+				img(src='/images/ripple.svg'
+					style='width:10em;height:5em;object-fit:cover;'
+					)
+				h1(style='font: small-caps bold 24px/1 sans-serif;'
+					) Ripple
+			nav
+				a(href='/home') Home 
+				a(href='/projects') Projects 
+				a(href='/home') Add Account 
+				a(href='/home') Record 
+				if lgd
+					a(href='/users/manage') Manage Account
+					a(href='/users/logout') Logout
+		main
+			block content
+		aside
+			p It will
+			p be
+			p updated
+			p soon

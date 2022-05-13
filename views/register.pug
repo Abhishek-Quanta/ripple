@@ -1,0 +1,25 @@
+extends layout
+block content
+	.formdiv
+		h3 Register
+		form(method='POST' action='')
+			label(for='name') Full Name
+			input#user(type='text' name='name' required='true'
+				value=user===undefined?'':user.name)
+			label(for='age') Age
+			input(type='text' name='age'
+				value=user===undefined?'':user.age)
+			label(for='mail') Email Id
+			input#mail(type='email' name='mail' required='true'
+				value=user===undefined?'':user.mail)
+			label(for='pass1') Password
+			input#pass(type='password' name='pass1' required='true')
+			label(for='pass2') Confirm Password
+			input#pass(type='password' name='pass2' required='true')
+			button(type='submit') Submit
+		.but
+			a(href='/users/login') Login
+		if errors
+			ul
+				each err in errors
+					li= err.msg

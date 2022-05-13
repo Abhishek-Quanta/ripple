@@ -1,0 +1,20 @@
+extends layout
+block content
+	.formdiv
+		h3= title
+		form(method='POST' action='')
+			label(for='mail') Email Id
+			input#mail(type='email' name='mail' required='true')
+			label(for='pass') Password
+			input#pass(type='password' name='pass' required='true')
+			if chng
+				label(for='chpass') Changed Password
+				input#chpass(type='text' name='chpass' required='true')
+			button(type='submit') Submit
+		.but
+			if !lgd
+				a(href='/users/register') Register
+		if errors
+			ul
+				each err in errors
+					li= err.msg

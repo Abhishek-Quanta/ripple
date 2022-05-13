@@ -1,0 +1,13 @@
+extends layout
+block content
+	.formdiv
+		script(scr='/javascripts/manage.js' defer)
+		h3= title
+		if(alt==='password')
+			.ani Password Changed
+		else if(alt==='del')
+			.ani Account Deleted
+		.but
+			a(href='/users/modify/password') Change Password
+			a(href='/users/modify/del') Delete Account
+			a(href='/users/logout') Logout

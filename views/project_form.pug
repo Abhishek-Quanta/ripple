@@ -1,0 +1,15 @@
+extends layout
+block content
+	h1= title
+	form(method='POST' action='')
+		label(for='title') Title
+		input(type='text' placeholder='Project Title' name='title'
+			required='true' value=project?project.title:'')
+		label(for='description') Description
+		textarea(type='textarea' placeholder='Description' 
+			name='description') #{project?project.description:''}
+		button(type='submit') Submit
+	if errors
+		ul
+			each error in errors
+				li!=error.msg

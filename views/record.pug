@@ -1,0 +1,22 @@
+extends layout
+block content
+	script(src='/javascripts/record.js' defer)
+	div(style='background-color:#000022;')
+		button(onclick="maniAud('saveaud')") Save
+		button(onclick="maniAud('muteaud')") Mute Segment
+		button(onclick="maniAud('removeaud')") Remove Segment
+		button(onclick="maniAud('cutaud')") Cut Segment
+	if(project)
+		script.
+			var projectId="#{projId}";
+			var nodesArr=[];
+			console.log('projectId:',projectId);
+		each node in project.nodes
+			script.
+				var nodes={id:"#{node._id}",title:"#{node.title}",
+					canvas:"#{node.canvas}",canvaPo:"#{node.canvaPo}",
+					audSrc:"#{node.url}"};
+				nodesArr.push(nodes);
+	.recnode#addnode
+		div(style='padding:.3em;') Add Node
+		
