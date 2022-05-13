@@ -12,7 +12,7 @@ let chunks=[];
 var recentClip='';
 var activeNode;
 var rectImg=document.createElement('img');
-rectImg.src='http://localhost:3000/images/rect.png'
+rectImg.src='/images/rect.png'
 const xhr=new XMLHttpRequest();
 function canRefresh(can,rect=rectImg){
 	var canvaCon=can.getContext('2d');
@@ -46,7 +46,7 @@ function maniAud(job){
 			activeNode.audio.duration;
 	var end=(activeNode.end/activeNode.canvaPo)*
 			activeNode.audio.duration;
-	xhr.open('POST','http://localhost:3000/record/eve');
+	xhr.open('POST','/record/eve');
 	xhr.setRequestHeader('Content-Type','application/json');
 	xhr.send(JSON.stringify({eve:job,start:start,
 		end:end,nodeId:activeNode.id,projId:projectId}))
@@ -55,8 +55,8 @@ function maniAud(job){
 }
 
 function RecNode(id=null,title,
-	canvaSrc='http://localhost:3000/images/rect.png',
-	audSrc='http://localhost:3000/recfiles/'+title+'.mp3',
+	canvaSrc='/images/rect.png',
+	audSrc='/recfiles/'+title+'.mp3',
 	canvaPo=0
 ){
 	this.id=id;
@@ -82,8 +82,8 @@ function RecNode(id=null,title,
 	this.clipName.innerHTML=title;//'NewRecord'+i;
 	this.play=document.createElement('img');
 	this.play.classList.add('ico');
-//	this.play.src='http://localhost:3000/images/play.png';
-	this.play.src='http://localhost:3000/images/play.svg';
+//	this.play.src='/images/play.png';
+	this.play.src='/images/play.svg';
 	but.append(this.clipName,this.play);
 	some.append(but);
 	but=document.createElement('div');
@@ -110,7 +110,7 @@ function RecNode(id=null,title,
 	this.end=0;
 
 	this.cur=document.createElement('img');
-	this.cur.src='http://localhost:3000/images/cursor.png';
+	this.cur.src='/images/cursor.png';
 	this.cur.classList.add('cur');
 	this.cur.draggable=true;
 	this.clipCont.append(some,this.canva,this.cur);
@@ -174,7 +174,7 @@ RecNode.prototype.setListeners=function(){
 		var newName=prompt('Enter New Name');
 		if(newName!=""&&newName!=null)
 			this.clipName.innerHTML=newName;
-		xhr.open('POST','http://localhost:3000/record/eve');
+		xhr.open('POST','/record/eve');
 		xhr.setRequestHeader('Content-Type','application/json');
 		xhr.send(JSON.stringify({eve:'rename',bef:bef,
 			aft:this.clipName.innerHTML,nodeId:this.id
@@ -182,13 +182,13 @@ RecNode.prototype.setListeners=function(){
 	}
 	this.download.onclick=e=>{
 		var name=this.clipName.innerHTML;
-		xhr.open('POST','http://localhost:3000/record/eve');
+		xhr.open('POST','/record/eve');
 		xhr.setRequestHeader('Content-Type','application/json');
 		xhr.send(JSON.stringify({eve:'down',name:name}));
 	}
 	this.deleteBut.onclick=e=>{
 		//count--;
-		xhr.open('POST','http://localhost:3000/record/eve');
+		xhr.open('POST','/record/eve');
 		xhr.setRequestHeader('Content-Type','application/json');
 		var name=this.clipName.innerHTML;
 		xhr.send(JSON.stringify({eve:'dele',name:name,projId:projectId,
@@ -229,17 +229,17 @@ RecNode.prototype.setListeners=function(){
 	}
 	//audio
 	this.audio.onloadstart=e=>{
-		this.play.src='http://localhost:3000/images/load.png'
+		this.play.src='/images/load.png'
 	}
 	this.audio.oncanplaythrough=e=>{
-//		this.play.src='http://localhost:3000/images/play.png'
-		this.play.src='http://localhost:3000/images/play.svg'
+//		this.play.src='/images/play.png'
+		this.play.src='/images/play.svg'
 	}
 	this.audio.onended=e=>{/*
 		this.play
-			.src='http://localhost:3000/images/play.png';*/
+			.src='/images/play.png';*/
 		this.play
-			.src='http://localhost:3000/images/play.svg';
+			.src='/images/play.svg';
 	}
 	this.audio.ontimeupdate=e=>{
 		if(this.audio.paused)
@@ -254,12 +254,12 @@ RecNode.prototype.setListeners=function(){
 	}
 	this.audio.onplay=e=>{
 		this.play
-			.src='http://localhost:3000/images/pause.svg';
+			.src='/images/pause.svg';
 		console.log('audio is playing',this.play.src);
 	}
 	this.audio.onpause=e=>{
 		this.play
-			.src='http://localhost:3000/images/play.svg';
+			.src='/images/play.svg';
 	}
 	this.play.onclick=e=>{
 		//audio
@@ -306,7 +306,7 @@ RecNode.prototype.drawWave=function(){
 	}*/
 }
 function updateCanva(){
-	xhr.open('POST','http://localhost:3000/record/eve')
+	xhr.open('POST','/record/eve')
 	xhr.setRequestHeader('Content-Type','application/json')
 	xhr.send(JSON.stringify({eve:'updateCanva',id:activeNode.id,
 		canvas:activeNode.canva.toDataURL(),canvaPo:activeNode.canvaPo}))
@@ -317,13 +317,13 @@ xhr.onload=function(){
 		var name=activeNode.clipName.innerHTML;
 		name+='-'+res.eve.split('aud')[0];
 		activeNode.clipName.innerHTML=name;
-		activeNode.audio.src='http://localhost:3000/recfiles/'+
+		activeNode.audio.src='/recfiles/'+
 				name+'.mp3'
 	}*/
 	if(res.eve==='recdone'){
 		console.log('Recording Done');
 		
-		this.open('POST','http://localhost:3000/record/eve');
+		this.open('POST','/record/eve');
 		this.setRequestHeader('Content-Type','application/json');
 		this.send(JSON.stringify({eve:'move',name:recentClip,
 			canvas:activeNode.canva.toDataURL(),projId:projectId,
@@ -420,7 +420,7 @@ navigator.mediaDevices.getUserMedia(
 			chunks=[];
 			var fordat=new FormData();
 			fordat.append('file',blob,recentClip+'.mp3');
-			xhr.open('POST','http://localhost:3000/record');
+			xhr.open('POST','/record');
 			xhr.send(fordat);
 		}
 	})

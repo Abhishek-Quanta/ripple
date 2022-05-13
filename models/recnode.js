@@ -7,6 +7,6 @@ var RecnodeSchema=new Schema({
 	canvaPo:Number
 })
 RecnodeSchema.virtual('url').get(function(){
-	return 'http://localhost:3000/audio/'+this._id
+	return '/audio/'+this._id
 })
 module.exports=mongoose.model('RecNode',RecnodeSchema)

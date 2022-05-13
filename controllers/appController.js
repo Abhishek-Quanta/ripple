@@ -24,7 +24,15 @@ exports.home_get=function(req,res){
 		lgd=true
 	res.render('index',{title:'Ripple',lgd:lgd})
 }
-exports.prolist_get=function(req,res,next){
+exports.prolist_get=async function(req,res,next){
+	try{
+		const files=await fspro.readdir('./public/recfiles')
+		for(const file of files)
+			await fspro.unlink('./public/recfiles/'+file)
+	}
+	catch(err){
+		console.log(err)
+	}
 	Project.find({})
 		.select('title description')
 		.sort({created_on:-1})

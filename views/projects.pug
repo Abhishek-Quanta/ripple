@@ -23,7 +23,7 @@ block content
 			console.log("res:",res.eve);
 		}
 		function delProj(id){
-			xhr.open('POST','http://localhost:3000/record/eve');
+			xhr.open('POST','/record/eve');
 			xhr.setRequestHeader('Content-Type','application/json');
 			xhr.send(JSON.stringify({eve:'delproj',id:id}));
 		}
@@ -31,7 +31,7 @@ block content
 		-var songId="'play"+proj.id+"'"
 		-var songId0='play'+proj.id
 		-var delproj='delProj("'+proj.id+'")'
-		-var url="'http://localhost:3000/project/audio/"+proj.id+"'"
+		-var url="'/project/audio/"+proj.id+"'"
 		.projects
 			a.mlist(href=proj.url) #{proj.title}
 			.projicons
