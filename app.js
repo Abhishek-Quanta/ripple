@@ -1,3 +1,4 @@
+require('dotenv').config()
 const express=require('express')
 const http=require('http')
 const debug=require('debug')('ripple:server')
@@ -13,8 +14,9 @@ var usersRouter = require('./routes/users')
 const app=express()
 const server=http.createServer(app)
 const port=3000
-
-var mongoDB='mongodb+srv://Abhishek:Qu4ntaBho0@cluster0.bx2hb.mongodb.net/ripple?retryWrites=true&w=majority'
+/*
+var mongoDB='mongodb+srv://Abhishek:Qu4ntaBho0@cluster0.bx2hb.mongodb.net/ripple?retryWrites=true&w=majority'*/
+var mongoDB=process.env.MONGODB_URI
 mongoose.connect(mongoDB,{useNewUrlParser:true,useUnifiedTopology:true});
 var db=mongoose.connection;
 db.on('error',console.error.bind(console,'MongoDB connection error:'));
@@ -36,7 +38,7 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
 app.use(express.static('./public'))
 app.use(session({
-			secret:'I should change this',
+			secret:process.env.SECRET_CK,
 			resave:false,
 			saveUninitialized:false,
 			store:store
