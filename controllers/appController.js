@@ -325,7 +325,6 @@ exports.record_eve=async function(req,res,next){
     	    })
         })
     }
-    //ffmpeg -i aabad.mp3 -i abad.mp3 -filter_complex amix=inputs=2:duration=longest output.mp3
     else if(req.body.eve==='removeaud'){
         var start=req.body.start
         var end=req.body.end

@@ -14,8 +14,6 @@ var usersRouter = require('./routes/users')
 const app=express()
 const server=http.createServer(app)
 const port=3000
-/*
-var mongoDB='mongodb+srv://Abhishek:Qu4ntaBho0@cluster0.bx2hb.mongodb.net/ripple?retryWrites=true&w=majority'*/
 var mongoDB=process.env.MONGODB_URI
 mongoose.connect(mongoDB,{useNewUrlParser:true,useUnifiedTopology:true});
 var db=mongoose.connection;
