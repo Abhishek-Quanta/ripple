@@ -13,7 +13,22 @@ var usersRouter = require('./routes/users')
 
 const app=express()
 const server=http.createServer(app)
-const port=3000
+const port=normalizePort(process.env.PORT||'3000')
+function normalizePort(val) {
+  var port = parseInt(val, 10);
+
+  if (isNaN(port)) {
+    // named pipe
+    return val;
+  }
+
+  if (port >= 0) {
+    // port number
+    return port;
+  }
+
+  return false;
+}
 var mongoDB=process.env.MONGODB_URI
 mongoose.connect(mongoDB,{useNewUrlParser:true,useUnifiedTopology:true});
 var db=mongoose.connection;
